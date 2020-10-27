@@ -1,2 +1,3 @@
-# switch-webos
-A web-based operating system for the Nintendo Switch
+# Switch WebOS
+
+A web-based "operating system" for the Nintendo Switch
