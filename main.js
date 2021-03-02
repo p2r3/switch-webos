@@ -2,6 +2,10 @@ function getId(elementId){
   return document.getElementById(elementId);
 }
 
+function getClass(className, i){
+  return document.getElementsByClassName(className)[i];
+}
+
 var selected=false;
 
 function openURL(url){
@@ -11,13 +15,13 @@ function openURL(url){
   if(mode == "apps"){
 
     for(var i = 0; i < 4 + maxRotate; i++){
-      if(i != currItem) document.getElementsByClassName("box")[i].style.opacity = 0;
+      if(i != currItem) getClass("box", i).style.opacity = 0;
     }
 
   }else{
 
     for(var i = 0; i < 4 + maxRotateGames; i++){
-      if(i != currItem)document.getElementsByClassName("box")[i].style.opacity = 0;
+      if(i != currItem) getClass("box", i).style.opacity = 0;
     }
 
   }
@@ -26,6 +30,7 @@ function openURL(url){
 
     var absoluteItemPos = currItem + 1 - rotatePos;
     var contPrevLeft = getId("container").style.left.replace("vw", "");
+    console.log(contPrevLeft);
     if(contPrevLeft == "") contPrevLeft = 15;
     getId("container").style.left = parseInt(contPrevLeft, 10) + 50 - absoluteItemPos * 20 + "vw";
     getId("selector").style.transition = "left 0.7s";
@@ -105,29 +110,13 @@ function moveLeft(){
 
 function select(){
 
-  if(mode == "apps"){
-
-    if(currItem == 0) openURL("https://web.telegram.org");
-    if(currItem == 1) openURL("https://youtube.com");
-    if(currItem == 2) openURL("https://web.whatsapp.com");
-    if(currItem == 3) openURL("https://twitch.tv");
-    if(currItem == 4) openURL("https://discordapp.com/app");
-    if(currItem == 5) openURL("https://start.duckduckgo.com");
-    if(currItem == 6) openURL("https://twitter.com");
-    if(currItem == 7) openURL("games/index.html");
-
-  }else{
-
-    if(currItem == 0) openURL("https://tetr.io");
-    if(currItem == 1) openURL("https://jstris.jezevec10.com");
-    if(currItem == 3) openURL("https://www.labr.it/p2r3/switch-webos/index.html");
-
-  }
+  if(mode == "apps") openURL(apps.link[currItem]);
+  else openURL(games.link[currItem]);
 
 }
 
 var rotatePos = 0;
-var maxRotate = 4, maxRotateGames = 0;
+var maxRotate = apps.link.length - 4, maxRotateGames = games.link.length - 4;
 
 function rotateList(direction){
 
@@ -142,14 +131,14 @@ function rotateList(direction){
     if(contPrevLeft == "") contPrevLeft = 15;
 
     getId("container").style.left = parseInt(contPrevLeft, 10) + 20 + "vw";
-    document.getElementsByClassName("box")[rotatePos - 1].style.opacity = "1";
-    document.getElementsByClassName("box")[rotatePos + 3].style.opacity = "0.2";
+    getClass("box", rotatePos - 1).style.opacity = "1";
+    getClass("box", rotatePos + 3).style.opacity = "0.2";
 
     rotatePos--;
 
   }else{
 
-    if((mode=="apps"&&maxRotate==rotatePos)||(mode!="apps"&&maxRotateGames==rotatePos)){
+    if((mode == "apps" && maxRotate == rotatePos) || (mode != "apps" && maxRotateGames == rotatePos)){
       currItem--;
       return 0;
     }
@@ -158,8 +147,8 @@ function rotateList(direction){
     if(contPrevLeft == "") contPrevLeft = 15;
 
     getId("container").style.left = parseInt(contPrevLeft, 10) - 20 + "vw";
-    document.getElementsByClassName("box")[rotatePos].style.opacity = "0.2";
-    document.getElementsByClassName("box")[rotatePos + 4].style.opacity = "1";
+    getClass("box", rotatePos).style.opacity = "0.2";
+    getClass("box", rotatePos + 4).style.opacity = "1";
 
     rotatePos++;
 
@@ -169,8 +158,8 @@ function rotateList(direction){
 
 function dockCheck(){
 
-    if(window.innerWidth > 1280) getId("mode").innerHTML="Mode: Docked";
-    else getId("mode").innerHTML="Mode: Handheld";
+    if(window.innerWidth > 1280) getId("mode").innerHTML = "Mode: Docked";
+    else getId("mode").innerHTML = "Mode: Handheld";
 
     setTimeout(function () {
       dockCheck();
@@ -178,9 +167,19 @@ function dockCheck(){
 
 }
 
+function loadApps(){
+
+  for(var i = 0; i < apps.link.length; i++){
+    getId("container").innerHTML += '<div class="box"><img src="./icons/' + apps.icon[i] + '" alt="' + apps.title[i] + '"><p>' + apps.title[i] + '</p></div>';
+  }
+
+}
+
 function onLoad(){
 
-  window.scrollTo(0,window.innerHeight);
+  loadApps();
+
+  window.scrollTo(0,73);
 
   setInterval(function () {
     getId("clock").innerHTML = getTime();

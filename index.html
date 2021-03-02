@@ -1,54 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
   <head>
+
     <meta charset="utf-8">
-    <title>Nintendo Switch Web OS</title>
+    <title>p2r3's Switch Web OS</title>
+
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript">
       var mode="apps";
     </script>
+    <script src="apps.js" charset="utf-8"></script>
     <script src=main.js charset="utf-8"></script>
+
   </head>
+
   <body onload="onLoad()" onkeydown="keypress()">
+
     <div id="container">
-      <div class="box">
-        <img src="icons/telegram-icon.jpg" alt="Telegram">
-        <p>Telegram</p>
-      </div>
-      <div class="box">
-        <img src="icons/youtube-icon.jpg" alt="YouTube">
-        <p>YouTube</p>
-      </div>
-      <div class="box">
-        <img src="icons/whatsapp-icon.jpg" alt="WhatsApp">
-        <p>WhatsApp</p>
-      </div>
-      <div class="box">
-        <img src="icons/twitch-icon.jpg" alt="Twitch">
-        <p>Twitch</p>
-      </div>
-      <div class="box">
-        <img src="icons/discord-icon.jpg" alt="Discord">
-        <p>Discord</p>
-      </div>
-      <div class="box">
-        <img src="icons/duckduckgo-icon.jpg" alt="DuckDuckGo">
-        <p>DuckDuckGo</p>
-      </div>
-      <div class="box">
-        <img src="icons/twitter-icon.jpg" alt="Twitter">
-        <p>Twitter</p>
-      </div>
-      <div class="box">
-        <img src="icons/games-icon.jpg" alt="Games">
-        <p>Games</p>
-      </div>
+      <!-- JavaScript generated content -->
     </div>
+
     <img id="buttonguide" src="icons/buttons.png" alt="[<] Left | [>] Right | [A] Select">
-    <div id="button-left" onclick="moveLeft()"></div><div id="button-right" onclick="moveRight()"></div><div id="button-select" onclick="select()"></div>
-    <div id="selector"></div>
+    <div id="button-left" onclick="moveLeft()"></div>
+    <div id="button-right" onclick="moveRight()"></div>
+    <div id="button-select" onclick="select()"></div>
+
     <p id="clock">00:00:00</p>
     <p id="mode">Mode: Handheld</p>
+
+    <div id="selector"></div>
     <div id="ripple"></div>
+
   </body>
+
 </html>
